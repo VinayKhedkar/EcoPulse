@@ -9,7 +9,7 @@ const Navbar = () => {
     const isActive = (path) => location === path
 
     return (
-        <div className="max-container relative z-10 bottom-[1rem]">
+        <div className="max-container relative z-10 bottom-[1rem] bg-transparent">
             <nav className="w-full bg-white rounded-full shadow-[0_0_5px_rgba(0,0,0,0.2)] py-[1.5rem]">
                 <div className="flex justify-between items-center px-[3.5rem]">
                     <Link
