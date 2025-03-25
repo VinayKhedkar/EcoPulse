@@ -7,7 +7,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme inline {
-    --color-primary: #f3f8fa;
+    --color-primary: #FDFDFD;
     --color-secondary: #29303d;
     --color-tertiary: #a3bbd6;
     --green-50: #e6f4eb;
