@@ -1,26 +1,205 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import '@fontsource/poppins';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-primary: #f3f8fa;
+    --color-secondary: #29303d;
+    --color-tertiary: #a3bbd6;
+    --green-50: #e6f4eb;
+    --green-100: #cce9d7;
+    --green-200: #99d3af;
+    --green-300: #66bd86;
+    --green-400: #33a75e;
+    --green-500: #007e2f;
+    --green-600: #006e29;
+    --green-700: #005c22;
+    --green-800: #004a1b;
+    --green-900: #003714;
+    --color-red-100: #ffd6de;
+    --color-red-200: #ffadbd;
+    --color-red-300: #ff859d;
+    --color-red-400: #ff5c7c;
+    --color-red-500: #ff6384;
+    --color-red-600: #d6506c;
+    --color-red-700: #aa4057;
+    --color-red-800: #7f3042;
+    --color-red-900: #531f2d;
+    --gray-50: #f2f2f2;
+    --gray-100: #e6e6e6;
+    --gray-200: #cccccc;
+    --gray-300: #b3b3b3;
+    --gray-400: #a6a6a6;
+    --gray-500: #939393;
+    --gray-600: #858585;
+    --gray-700: #6e6e6e;
+    --gray-800: #5a5a5a;
+    --gray-900: #474747;
+    --color-green: #007e2f;
+    --color-red: #ff6384;
+    --color-gray: #939393;
+    --font-primary: 'Poppins', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@layer base {
+    html {
+        font-size: 62.5%;
+    }
+
+    h1 {
+        font-size: clamp(1.8rem, 1.5143rem + 0.8929vw, 2.2rem);
+        font-weight: bold;
+        line-height: 1.3;
+    }
+
+    h2 {
+        font-size: clamp(1.6rem, 1.4571rem + 0.4464vw, 1.8rem);
+        font-weight: bold;
+        line-height: 1.4;
+    }
+
+    h3 {
+        font-size: clamp(1.3rem, 1.1092rem + 0.5089vw, 1.5rem);
+        line-height: 1.4;
+    }
+
+    p {
+        font-size: clamp(1rem, 0.7137rem + 0.7634vw, 1.3rem);
+        line-height: 1.5;
+    }
+
+    body {
+        font-family: var(--font-primary);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        scroll-behavior: smooth;
+        text-decoration: none;
+        list-style: none;
+        font-family: var(--font-primary);
+    }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+    .max-container {
+        max-width: 768px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 clamp(1rem, -0.35rem + 4.2188vw, 6.4rem);
+    }
+}
+
+@layer utilities {
+    @media (min-width: 450px) {
+        .sm-row {
+            flex-direction: row;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes skeleton-loading {
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+.animate-skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: #e5e7eb;
+}
+
+.animate-skeleton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #d1d5db, transparent);
+    animation: skeleton-loading 1s infinite;
+}
+
+.toast-present {
+    background: var(--color-green-400) !important;
+    color: var(--color-secondary) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 500;
+    background-blend-mode: overlay;
+}
+
+.toast-absent {
+    background: var(--color-red-400) !important;
+    color: var(--color-primary) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 500;
+    background-blend-mode: overlay;
+}
+
+.toast-medical {
+    background: var(--color-yellow-400) !important;
+    color: var(--color-secondary) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 500;
+    background-blend-mode: overlay;
+}
+
+.toast-cancelled {
+    background: var(--color-green-400) !important;
+    color: var(--color-secondary) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 500;
+    background-blend-mode: overlay;
+}
+
+.toast-error {
+    background: var(--color-red-400) !important;
+    color: var(--color-primary) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 500;
+    background-blend-mode: overlay;
+}
+
+.toast-success {
+    background: var(--color-green-400) !important;
+    color: var(--color-secondary) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 500;
+    background-blend-mode: overlay;
 }
