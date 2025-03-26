@@ -47,6 +47,7 @@
     --color-green: #007e2f;
     --color-red: #ff6384;
     --color-gray: #939393;
+    --color-bluetooth: oklch(0.707 0.165 254.624);
     --font-primary: 'Poppins', 'Inter', sans-serif;
     --font-secondary: 'Plus Jakarta Sans', sans-serif;
     --font-tertiary: 'Lobster Two', cursive;
@@ -138,54 +139,6 @@
     height: 100%;
     background: linear-gradient(to right, transparent, #d1d5db, transparent);
     animation: skeleton-loading 1s infinite;
-}
-
-.toast-present {
-    background: var(--color-green-400) !important;
-    color: var(--color-secondary) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-weight: 500;
-    background-blend-mode: overlay;
-}
-
-.toast-absent {
-    background: var(--color-red-400) !important;
-    color: var(--color-primary) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-weight: 500;
-    background-blend-mode: overlay;
-}
-
-.toast-medical {
-    background: var(--color-yellow-400) !important;
-    color: var(--color-secondary) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-weight: 500;
-    background-blend-mode: overlay;
-}
-
-.toast-cancelled {
-    background: var(--color-green-400) !important;
-    color: var(--color-secondary) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-weight: 500;
-    background-blend-mode: overlay;
 }
 
 .toast-error {

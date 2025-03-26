@@ -3,10 +3,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { GrGallery } from 'react-icons/gr'
 import { RiCameraSwitchLine } from 'react-icons/ri'
+import toast from 'react-hot-toast'
 
 export default function Camera({ setCameraOpen, setCapturedImage }) {
     const videoRef = useRef(null)
-    const [facingMode, setFacingMode] = useState('user')
+    const [facingMode, setFacingMode] = useState('environment')
     const [image, setImage] = useState(null)
 
     useEffect(() => {
@@ -23,8 +24,11 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
             if (videoRef.current) {
                 videoRef.current.srcObject = stream
             }
+            toast.success('Camera started successfully', {
+                className: 'toast-success',
+            })
         } catch (error) {
-            console.error('Error accessing camera:', error)
+            toast.error('Failed to start camera', { className: 'toast-error' })
             setCameraOpen(false)
         }
     }
@@ -62,8 +66,8 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
     }
 
     return (
-        <div className="fixed inset-0 flex flex-col justify-between items-center z-50">
-            <div className="absolute top-0 w-full flex justify-between p-4 text-white z-10">
+        <div className="fixed inset-0 flex flex-col justify-between items-center z-50 w-full max-container">
+            <div className="absolute top-0 right-0 w-full flex justify-between p-4 text-white z-10">
                 <button
                     className="bg-[#0000004e] backdrop-blur-[1px] p-2 rounded-full"
                     onClick={() => setCameraOpen(false)}

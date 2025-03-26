@@ -6,7 +6,6 @@ import {
     Background,
     Farmer,
     Img1,
-    Img2,
     Img3,
     Medicine,
     Notification,
@@ -24,7 +23,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import Link from 'next/link'
-import { ArticleCard } from '@/components'
+import { ArticleCard, Bluetooth } from '@/components'
 
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
 
@@ -56,6 +55,9 @@ export default function Page() {
     const [cameraOpen, setCameraOpen] = useState(false)
     const [bluetoothOpen, setBluetoothOpen] = useState(false)
     const [capturedImage, setCapturedImage] = useState(null)
+    const [server, setServer] = useState(null)
+    const [service, setService] = useState(null)
+    const [characteristic, setCharacteristic] = useState(null)
 
     const handleCameraOpen = () => {
         setCameraOpen(true)
@@ -278,6 +280,14 @@ export default function Page() {
                 <Camera
                     setCameraOpen={setCameraOpen}
                     setCapturedImage={setCapturedImage}
+                />
+            )}
+            {bluetoothOpen && (
+                <Bluetooth
+                    setBluetoothOpen={setBluetoothOpen}
+                    setCharacteristic={setCharacteristic}
+                    setServer={setServer}
+                    setService={setService}
                 />
             )}
         </>
