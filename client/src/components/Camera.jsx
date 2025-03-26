@@ -64,7 +64,10 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
     return (
         <div className="fixed inset-0 flex flex-col justify-between items-center z-50">
             <div className="absolute top-0 w-full flex justify-between p-4 text-white z-10">
-                <button className='bg-[#0000004e] backdrop-blur-[1px] p-2 rounded-full' onClick={() => setCameraOpen(false)}>
+                <button
+                    className="bg-[#0000004e] backdrop-blur-[1px] p-2 rounded-full"
+                    onClick={() => setCameraOpen(false)}
+                >
                     <RxCross2 size={25} />
                 </button>
             </div>

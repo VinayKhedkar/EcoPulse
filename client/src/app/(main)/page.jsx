@@ -37,7 +37,7 @@ export default function Page() {
             title: 'Regenerative Agriculture and Soil Carbon" by Deniz Dutton',
             description:
                 'The author provides an overview of regenerative agriculture practices and their impact on soil carbon sequestration.',
-            image: Img2,
+            image: null,
             url: 'https://medium.com/%40deniz.dutton/the-good-the-bad-and-the-complicated-regenerative-agriculture-and-soil-carbon-d3fe62297a88',
         },
         {
@@ -49,7 +49,7 @@ export default function Page() {
         },
     ]
 
-    const [cameraOpen , setCameraOpen] = useState(false)
+    const [cameraOpen, setCameraOpen] = useState(false)
     const [capturedImage, setCapturedImage] = useState(null)
 
     const handleCameraOpen = () => {
@@ -176,7 +176,10 @@ export default function Page() {
                             <h3>Get Medicine</h3>
                         </div>
                     </div>
-                    <button onClick={handleCameraOpen} className="w-5/6 mx-auto text-center bg-[#00B2FF] py-[0.5rem] rounded-full">
+                    <button
+                        onClick={handleCameraOpen}
+                        className="w-5/6 mx-auto text-center bg-[#00B2FF] py-[0.5rem] rounded-full"
+                    >
                         <h2>Take a Photo</h2>
                     </button>
                 </div>
@@ -191,7 +194,7 @@ export default function Page() {
                             disableOnInteraction: false,
                         }}
                         speed={800}
-                        className="w-full max-w-full overflow-hidden"
+                        className="w-full max-w-full h-[100%] overflow-hidden"
                     >
                         {articlesInfo.map((article, index) => (
                             <SwiperSlide
@@ -204,29 +207,35 @@ export default function Page() {
                     </Swiper>
                 </div>
             </div>
-            {
-                cameraOpen && <Camera setCameraOpen={setCameraOpen} setCapturedImage={setCameraOpen} />
-            }
+            {cameraOpen && (
+                <Camera
+                    setCameraOpen={setCameraOpen}
+                    setCapturedImage={setCameraOpen}
+                />
+            )}
         </>
     )
 }
 
 const SwiperCard = ({ title, description, image, url }) => {
     return (
-        <Link
-            href={url}
-            className="flex flex-col gap-[1rem] min-h-[32rem] p-[2rem] bg-[#fff0d3b4] rounded-xl border-[2px] border-gray"
-            target="_blank"
-        >
-            <Image
-                src={image || Article}
-                width={50}
-                height={50}
-                alt={title}
-                className="w-full h-[15rem] object-cover rounded-xl"
-            />
-            <h3>{title}</h3>
-            <p>{description}</p>
-        </Link>
+        <div className="w-full h-full flex justify-center items-center p-[1rem] rounded-xl">
+            <div className="relative flex flex-col gap-[1rem] flex-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.2)] rounded-xl">
+                <Image
+                    src={image || Article}
+                    width={50}
+                    height={50}
+                    alt={title}
+                    className="w-full aspect-[24/9] object-cover object-top rounded-t-xl"
+                />
+                <div className="px-[1rem] pb-[1rem] flex flex-col gap-[1rem]">
+                    <h3 className="font-[900] font-secondary">{title}</h3>
+                    <p>{description}</p>
+                </div>
+                <div className='w-full flex justify-end items-center p-[1rem]'>
+                    <Link href={url} className=' bg-blue-100 rounded-lg p-[0.5rem]'>Read more</Link>
+                </div>
+            </div>
+        </div>
     )
 }
