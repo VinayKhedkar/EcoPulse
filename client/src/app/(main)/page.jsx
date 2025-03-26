@@ -24,6 +24,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import Link from 'next/link'
+import { ArticleCard } from '@/components'
 
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
 
@@ -53,10 +54,14 @@ export default function Page() {
     ]
 
     const [cameraOpen, setCameraOpen] = useState(false)
+    const [bluetoothOpen, setBluetoothOpen] = useState(false)
     const [capturedImage, setCapturedImage] = useState(null)
 
     const handleCameraOpen = () => {
         setCameraOpen(true)
+    }
+    const handleBluetoothOpen = () => {
+        setBluetoothOpen(true)
     }
 
     const getOrdinalSuffix = (day) => {
@@ -239,7 +244,7 @@ export default function Page() {
                         </div>
                     </div>
                     <button
-                        onClick={handleCameraOpen}
+                        onClick={handleBluetoothOpen}
                         className="w-5/6 mx-auto text-center bg-[#00B2FF] py-[0.5rem] rounded-full"
                     >
                         <h2>Connect to sensor </h2>
@@ -263,7 +268,7 @@ export default function Page() {
                                 key={index}
                                 className="w-auto max-w-[400px]"
                             >
-                                <SwiperCard {...article} />
+                                <ArticleCard {...article} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -272,37 +277,9 @@ export default function Page() {
             {cameraOpen && (
                 <Camera
                     setCameraOpen={setCameraOpen}
-                    setCapturedImage={setCameraOpen}
+                    setCapturedImage={setCapturedImage}
                 />
             )}
         </>
-    )
-}
-
-const SwiperCard = ({ title, description, image, url }) => {
-    return (
-        <div className="w-full h-full flex justify-center items-center p-[1rem] rounded-xl">
-            <div className="relative flex flex-col gap-[1rem] flex-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.2)] rounded-xl">
-                <Image
-                    src={image || Article}
-                    width={50}
-                    height={50}
-                    alt={title}
-                    className="w-full aspect-[24/9] object-cover object-top rounded-t-xl"
-                />
-                <div className="px-[1rem] pb-[1rem] flex flex-col gap-[1rem]">
-                    <h3 className="font-[900] font-secondary">{title}</h3>
-                    <p>{description}</p>
-                </div>
-                <div className="w-full flex justify-end items-center p-[1rem]">
-                    <Link
-                        href={url}
-                        className=" bg-blue-100 rounded-lg p-[0.5rem]"
-                    >
-                        Read more
-                    </Link>
-                </div>
-            </div>
-        </div>
     )
 }
