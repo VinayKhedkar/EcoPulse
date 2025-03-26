@@ -11,7 +11,7 @@ const ArticleCard = ({ title, description, image, url }) => {
                     width={50}
                     height={50}
                     alt={title}
-                    className="w-full aspect-[24/9] object-cover object-top rounded-t-xl"
+                    className="w-full aspect-[16/7] rounded-t-xl"
                 />
                 <div className="px-[1rem] pb-[1rem] flex flex-col gap-[1rem]">
                     <h3 className="font-[900] font-secondary">{title}</h3>

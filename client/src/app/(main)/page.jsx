@@ -23,7 +23,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import Link from 'next/link'
-import { ArticleCard, Bluetooth } from '@/components'
+import { ArticleCard, WiFiConnect } from '@/components'
+import { Wifi } from 'lucide-react'
 
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
 
@@ -53,7 +54,7 @@ export default function Page() {
     ]
 
     const [cameraOpen, setCameraOpen] = useState(false)
-    const [bluetoothOpen, setBluetoothOpen] = useState(false)
+    const [wifiOpen, setWifiOpen] = useState(false)
     const [capturedImage, setCapturedImage] = useState(null)
     const [server, setServer] = useState(null)
     const [service, setService] = useState(null)
@@ -282,14 +283,7 @@ export default function Page() {
                     setCapturedImage={setCapturedImage}
                 />
             )}
-            {bluetoothOpen && (
-                <Bluetooth
-                    setBluetoothOpen={setBluetoothOpen}
-                    setCharacteristic={setCharacteristic}
-                    setServer={setServer}
-                    setService={setService}
-                />
-            )}
+            {wifiOpen && <WiFiConnect setWiFiOpen={setWiFiOpen} />}
         </>
     )
 }

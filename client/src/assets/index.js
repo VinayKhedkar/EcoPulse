@@ -14,6 +14,9 @@ import Img1 from './img1.webp'
 import Img2 from './img2.webp'
 import Img3 from './img3.webp'
 import Soil from './soil.svg'
+import Community1 from './community.webp'
+import Farming from './farming.jpg'
+import Plantation from './plantation.jpg'
 
 export {
     Profile,
@@ -31,5 +34,8 @@ export {
     Img1,
     Img2,
     Img3,
-    Soil
+    Soil,
+    Community1,
+    Farming,
+    Plantation,
 }
