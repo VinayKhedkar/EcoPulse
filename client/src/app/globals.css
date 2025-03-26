@@ -2,7 +2,7 @@
 @import '@fontsource/poppins/index.css';
 @import '@fontsource/plus-jakarta-sans';
 @import '@fontsource/plus-jakarta-sans/700.css';
-@import '@fontsource/lobster-two'; 
+@import '@fontsource/lobster-two';
 @import '@fontsource/lobster-two/700.css';
 @import '@fontsource/preahvihear';
 
@@ -12,7 +12,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme inline {
-    --color-primary: #FDFDFD;
+    --color-primary: #fdfdfd;
     --color-secondary: #29303d;
     --color-tertiary: #a3bbd6;
     --green-50: #e6f4eb;
@@ -49,8 +49,8 @@
     --color-gray: #939393;
     --font-primary: 'Poppins', 'Inter', sans-serif;
     --font-secondary: 'Plus Jakarta Sans', sans-serif;
-    --font-tertiary: 'Lobster Two', cursive;  
-    --font-preahvihear: 'Preahvihear', cursive;  
+    --font-tertiary: 'Lobster Two', cursive;
+    --font-preahvihear: 'Preahvihear', cursive;
 }
 
 @layer base {

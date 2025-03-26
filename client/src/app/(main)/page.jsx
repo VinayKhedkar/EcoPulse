@@ -11,9 +11,12 @@ import {
     Medicine,
     Notification,
     ReportSVG,
+    Soil,
     TakePic,
 } from '@/assets'
 import { IoMdSearch } from 'react-icons/io'
+import { MdOutlineBluetoothSearching } from 'react-icons/md'
+import { FaMicrochip } from 'react-icons/fa6'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { FiSun } from 'react-icons/fi'
@@ -183,6 +186,65 @@ export default function Page() {
                         <h2>Take a Photo</h2>
                     </button>
                 </div>
+                <div className="bg-green-400 p-[1.5rem] rounded-xl flex flex-col gap-[2.2rem]">
+                    <h2>Diagnose plant stress</h2>
+                    <div className="flex justify-center items-center gap-[1rem]">
+                        <div className="flex flex-col gap-[1rem] items-center text-center">
+                            <div className="flex items-center justify-center bg-blue-400 rounded-full p-[1rem]">
+                                <MdOutlineBluetoothSearching className="w-[3rem] h-[3rem]" />
+                            </div>
+                            <h3>Connect to sensor</h3>
+                        </div>
+                        <Image
+                            src={Arrow}
+                            width={50}
+                            height={50}
+                            alt="arrow icon"
+                            className="w-[2.5rem] h-[2.5rem]"
+                        />
+                        <div className="flex flex-col gap-[1rem] items-center text-center">
+                            <div className="flex relative">
+                                <Image
+                                    src={Soil}
+                                    width={55}
+                                    height={55}
+                                    alt="Soil"
+                                />
+                                <FaMicrochip
+                                    fill="oklch(0.707 0.165 254.624)"
+                                    strokeWidth={18}
+                                    stroke="#000"
+                                    className="w-[3.2rem] h-[3.2rem] absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                />
+                            </div>
+
+                            <h3>Insert chip in the soil</h3>
+                        </div>
+                        <Image
+                            src={Arrow}
+                            width={50}
+                            height={50}
+                            alt="arrow icon"
+                            className="w-[2.5rem] h-[2.5rem]"
+                        />
+                        <div className="flex flex-col gap-[1rem] items-center text-center">
+                            <Image
+                                src={ReportSVG}
+                                width={50}
+                                height={50}
+                                alt=""
+                                className="w-[5rem] h-[5rem]"
+                            />
+                            <h3>See diagnosis</h3>
+                        </div>
+                    </div>
+                    <button
+                        onClick={handleCameraOpen}
+                        className="w-5/6 mx-auto text-center bg-[#00B2FF] py-[0.5rem] rounded-full"
+                    >
+                        <h2>Connect to sensor </h2>
+                    </button>
+                </div>
                 <div className="flex flex-col gap-[1rem] w-full">
                     <h2>Latest articles on agriculture</h2>
                     <Swiper
@@ -232,8 +294,13 @@ const SwiperCard = ({ title, description, image, url }) => {
                     <h3 className="font-[900] font-secondary">{title}</h3>
                     <p>{description}</p>
                 </div>
-                <div className='w-full flex justify-end items-center p-[1rem]'>
-                    <Link href={url} className=' bg-blue-100 rounded-lg p-[0.5rem]'>Read more</Link>
+                <div className="w-full flex justify-end items-center p-[1rem]">
+                    <Link
+                        href={url}
+                        className=" bg-blue-100 rounded-lg p-[0.5rem]"
+                    >
+                        Read more
+                    </Link>
                 </div>
             </div>
         </div>
