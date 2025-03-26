@@ -41,14 +41,6 @@ export default function Page() {
             <header className="flex flex-col justify-between items-center gap-[1rem]">
                 <div className="flex justify-between items-center w-full">
                     <h1 className="text-green font-extrabold">Profile</h1>
-                    <div className="flex items-center bg-green-200 p-[1rem] rounded-full">
-                        <Image
-                            src={Notification}
-                            width={15}
-                            height={15}
-                            alt="notification icon"
-                        />
-                    </div>
                 </div>
             </header>
 
