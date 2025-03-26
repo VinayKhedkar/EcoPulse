@@ -42,9 +42,9 @@ const Navbar = () => {
                         </p>
                     </Link>
                     <Link
-                        href="/community"
+                        href="/social"
                         className={`flex flex-col justify-center items-center gap-[0.1rem] ${
-                            isActive('/community') ? 'text-green' : 'opacity-50'
+                            isActive('/social') ? 'text-green' : 'opacity-50'
                         }`}
                     >
                         <svg
@@ -57,11 +57,11 @@ const Navbar = () => {
                             <path
                                 d="M25.1654 1H1V18.1429H10.062L13.0827 21L16.1034 18.1429H25.1654V1Z"
                                 stroke={
-                                    isActive('/community')
+                                    isActive('/social')
                                         ? '#007e2f'
                                         : '#939393'
                                 }
-                                fill={isActive('/community') ? '#007e2f' : ''}
+                                fill={isActive('/social') ? '#007e2f' : ''}
                                 strokeWidth={2}
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -70,10 +70,10 @@ const Navbar = () => {
 
                         <p
                             className={`${
-                                isActive('/community') ? 'text-green' : ''
+                                isActive('/social') ? 'text-green' : ''
                             } font-bold tracking-wide text-gray`}
                         >
-                            Community
+                            Social
                         </p>
                     </Link>
                     <Link
