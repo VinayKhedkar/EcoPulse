@@ -95,25 +95,31 @@ function Bluetooth({
                         <RxCross1 size={25} />
                     </button>
                 </div>
-                <div className="flex flex-col justify-center items-center gap-[3rem]">
-                    <div className="p-[2rem] bg-bluetooth rounded-full">
-                        <MdOutlineBluetoothSearching size={70} />
+                {device ? (
+                    <div className="flex flex-col justify-center items-center gap-[3rem]">
+                        <div className="p-[2rem] bg-bluetooth rounded-full">
+                            <MdOutlineBluetoothSearching size={70} />
+                        </div>
+                        <h2 className="font-normal max-w-[35rem] text-center">
+                            Turn on Bluetooth from settings and make sure your
+                            device is close to your sensor
+                        </h2>
+                        <button
+                            className="bg-gray-200 py-[1rem] px-[2rem] rounded-xl"
+                            onClick={connectToDevice}
+                        >
+                            <h3>
+                                {isConnected
+                                    ? `Connected to ${deviceName}`
+                                    : 'Tap to pair with sensor'}
+                            </h3>
+                        </button>
                     </div>
-                    <h2 className="font-normal max-w-[35rem] text-center">
-                        Turn on Bluetooth from settings and make sure your
-                        device is close to your sensor
-                    </h2>
-                    <button
-                        className="bg-gray-200 py-[1rem] px-[2rem] rounded-xl"
-                        onClick={connectToDevice}
-                    >
-                        <h3>
-                            {isConnected
-                                ? `Connected to ${deviceName}`
-                                : 'Tap to pair with sensor'}
-                        </h3>
-                    </button>
-                </div>
+                ) : (
+                    <div className="flex flex-col justify-center items-center gap-[3rem]">
+                        <h2>Device Connected : {device.name}</h2>
+                    </div>
+                )}
             </div>
         </div>
     )
