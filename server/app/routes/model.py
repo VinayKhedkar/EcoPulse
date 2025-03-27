@@ -4,6 +4,7 @@ from PIL import Image
 import onnxruntime as ort
 import os
 from app.utils import AppError
+import csv
 
 bp = Blueprint("model", __name__, url_prefix="/model")
 
@@ -37,30 +38,19 @@ def predict():
     predicted_class = int(np.argmax(output[0]))
     confidence = float(np.max(output[0]))
 
-    disease_mapping = {
-        0: "Pepper Bell - Bacterial Spot",
-        1: "Pepper Bell - Healthy",
-        2: "PlantVillage (Unknown Class)",
-        3: "Potato - Early Blight",
-        4: "Potato - Late Blight",
-        5: "Potato - Healthy",
-        6: "Tomato - Bacterial Spot",
-        7: "Tomato - Early Blight",
-        8: "Tomato - Late Blight",
-        9: "Tomato - Leaf Mold",
-        10: "Tomato - Septoria Leaf Spot",
-        11: "Tomato - Spider Mites (Two-Spotted)",
-        12: "Tomato - Target Spot",
-        13: "Tomato - Yellow Leaf Curl Virus",
-        14: "Tomato - Mosaic Virus",
-        15: "Tomato - Healthy",
-    }
+    with open("app/data/plant_village.csv", mode="r") as file:
+        reader = csv.DictReader(file)
+        disease_mapping = list(reader)
+    
+
+    # disease_mapping = 
 
     return jsonify(
         {
             "status": "success",
             "predicted_class": predicted_class,
-            "disease": disease_mapping[predicted_class],
+            "disease": disease_mapping[predicted_class]["disease"],
+            "suggestion": disease_mapping[predicted_class]["suggestion"],
             "confidence": confidence,
         }
     )
