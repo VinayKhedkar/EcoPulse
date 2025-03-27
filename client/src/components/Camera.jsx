@@ -4,11 +4,19 @@ import { RxCross2 } from 'react-icons/rx'
 import { GrGallery } from 'react-icons/gr'
 import { RiCameraSwitchLine } from 'react-icons/ri'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
+import { useCamera } from '@/context/camera.context'
+import { FaCheck } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
+import { CameraLoader } from '.'
 
 export default function Camera({ setCameraOpen, setCapturedImage }) {
     const videoRef = useRef(null)
+    const fileInputRef = useRef(null)
     const [facingMode, setFacingMode] = useState('environment')
-    const [image, setImage] = useState(null)
+    const { image, setImage } = useCamera()
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         startCamera(facingMode)
@@ -18,18 +26,19 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
 
     const startCamera = async (mode) => {
         try {
+            setLoading(true)
+            stopCamera() // Ensure any existing camera stream is stopped first
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { facingMode: mode },
             })
             if (videoRef.current) {
                 videoRef.current.srcObject = stream
             }
-            toast.success('Camera started successfully', {
-                className: 'toast-success',
-            })
+            setLoading(false)
         } catch (error) {
             toast.error('Failed to start camera', { className: 'toast-error' })
             setCameraOpen(false)
+            setLoading(false)
         }
     }
 
@@ -38,10 +47,11 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
             videoRef.current.srcObject
                 .getTracks()
                 .forEach((track) => track.stop())
+            videoRef.current.srcObject = null
         }
     }
 
-    const takePhoto = () => {
+    const takePhoto = async () => {
         if (!videoRef.current) return
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
@@ -51,6 +61,7 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
         const imageData = canvas.toDataURL('image/png')
         setImage(imageData)
         setCapturedImage(imageData)
+        stopCamera() // Stop camera after taking photo
     }
 
     const handleFileUpload = (event) => {
@@ -60,24 +71,43 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
             reader.onload = (e) => {
                 setImage(e.target.result)
                 setCapturedImage(e.target.result)
+                stopCamera() // Stop camera when file is uploaded
             }
             reader.readAsDataURL(file)
         }
     }
 
+    const handleReject = () => {
+        setImage(null)
+        stopCamera() // Ensure camera stream is stopped
+        startCamera(facingMode) // Restart camera with current facing mode
+    }
+
+    const triggerFileInput = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click()
+        }
+    }
+
     return (
-        <div className="fixed inset-0 flex flex-col justify-between items-center z-50 w-full max-container">
-            <div className="absolute top-0 right-0 w-full flex justify-between p-4 text-white z-10">
+        <div className="fixed bg-[rgba(0,0,0,0.5)] backdrop-blur-[5px] inset-0 flex flex-col gap-[3rem] items-center z-50 w-full max-container">
+            <div className="w-full flex justify-between p-4 text-white z-10">
                 <button
-                    className="bg-[#0000004e] backdrop-blur-[1px] p-2 rounded-full"
-                    onClick={() => setCameraOpen(false)}
+                    className="bg-[#0000004e] backdrop-blur-[4px] p-2 rounded-full"
+                    onClick={() => {
+                        setCameraOpen(false)
+                        stopCamera()
+                        setImage(null)
+                    }}
                 >
                     <RxCross2 size={25} />
                 </button>
             </div>
 
             <div className="absolute inset-0">
-                {!image ? (
+                {loading ? (
+                    <CameraLoader />
+                ) : !image ? (
                     <video
                         ref={videoRef}
                         autoPlay
@@ -85,45 +115,73 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
                         className="h-full w-full object-cover"
                     ></video>
                 ) : (
-                    <img
+                    <Image
                         src={image}
-                        alt="Captured"
-                        className="h-full w-full object-cover"
+                        alt="Captured crop image"
+                        width={500}
+                        height={500}
+                        className="h-full object-cover"
                     />
                 )}
             </div>
 
-            <div className="absolute bottom-0 w-full flex justify-evenly gap-[2rem] p-[2rem] z-10 bg-[#0000004e] backdrop-blur-[1px]">
-                <label className="flex items-center">
-                    <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleFileUpload}
-                    />
-                    <button className="text-white">
-                        <GrGallery size={30} />
-                    </button>
-                </label>
-
-                <div className="p-[1rem] border-[2px] border-white rounded-full flex justify-center items-center">
+            {image ? (
+                <div className="absolute bottom-0 w-full flex justify-center gap-[10rem] p-[2rem] z-10 bg-[#0000004e] backdrop-blur-[1px]">
                     <button
-                        onClick={takePhoto}
-                        className="w-[5rem] h-[5rem] bg-white rounded-full shadow-md"
-                    ></button>
+                        className="text-[#D84315] bg-[#FFF8E1] p-[1.5rem] rounded-full"
+                        onClick={handleReject}
+                    >
+                        <RxCross2 strokeWidth={1.5} size={35} />
+                    </button>
+                    <button
+                        className="text-[#2E7D32] bg-[#d0ffd4] p-[1.5rem] rounded-full"
+                        onClick={() => {
+                            router.push('/crop-disease')
+                            toast.success('Image captured successfully!', {
+                                className: 'toast-success',
+                            })
+                        }}
+                    >
+                        <FaCheck size={35} />
+                    </button>
                 </div>
+            ) : (
+                <div className="absolute bottom-0 w-full flex justify-evenly gap-[2rem] p-[2rem] z-10 bg-[#0000004e] backdrop-blur-[1px]">
+                    <div className="flex items-center">
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleFileUpload}
+                        />
+                        <button 
+                            className="text-white"
+                            onClick={triggerFileInput}
+                        >
+                            <GrGallery size={30} />
+                        </button>
+                    </div>
 
-                <button
-                    className="text-white"
-                    onClick={() =>
-                        setFacingMode(
-                            facingMode === 'user' ? 'environment' : 'user'
-                        )
-                    }
-                >
-                    <RiCameraSwitchLine size={35} />
-                </button>
-            </div>
+                    <div className="p-[1rem] border-[2px] border-white rounded-full flex justify-center items-center">
+                        <button
+                            onClick={takePhoto}
+                            className="w-[5rem] h-[5rem] bg-white rounded-full shadow-md"
+                        ></button>
+                    </div>
+
+                    <button
+                        className="text-white"
+                        onClick={() =>
+                            setFacingMode(
+                                facingMode === 'user' ? 'environment' : 'user'
+                            )
+                        }
+                    >
+                        <RiCameraSwitchLine size={35} />
+                    </button>
+                </div>
+            )}
         </div>
     )
 }

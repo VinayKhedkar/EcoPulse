@@ -25,6 +25,7 @@ import 'swiper/css'
 import Link from 'next/link'
 import { ArticleCard, WiFiConnect } from '@/components'
 import { Wifi } from 'lucide-react'
+import { CiWifiOn } from 'react-icons/ci'
 
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
 
@@ -56,15 +57,12 @@ export default function Page() {
     const [cameraOpen, setCameraOpen] = useState(false)
     const [wifiOpen, setWifiOpen] = useState(false)
     const [capturedImage, setCapturedImage] = useState(null)
-    const [server, setServer] = useState(null)
-    const [service, setService] = useState(null)
-    const [characteristic, setCharacteristic] = useState(null)
 
     const handleCameraOpen = () => {
         setCameraOpen(true)
     }
-    const handleBluetoothOpen = () => {
-        setBluetoothOpen(true)
+    const handleWifiConnectOpen = () => {
+        setWifiOpen(true)
     }
 
     const getOrdinalSuffix = (day) => {
@@ -199,7 +197,7 @@ export default function Page() {
                     <div className="flex justify-center items-center gap-[1rem]">
                         <div className="flex flex-col gap-[1rem] items-center text-center">
                             <div className="flex items-center justify-center bg-blue-400 rounded-full p-[1rem]">
-                                <MdOutlineBluetoothSearching className="w-[3rem] h-[3rem]" />
+                                <CiWifiOn strokeWidth={1} className="w-[3rem] h-[3rem]" />
                             </div>
                             <h3>Connect to sensor</h3>
                         </div>
@@ -247,7 +245,7 @@ export default function Page() {
                         </div>
                     </div>
                     <button
-                        onClick={handleBluetoothOpen}
+                        onClick={handleWifiConnectOpen}
                         className="w-5/6 mx-auto text-center bg-[#00B2FF] py-[0.5rem] rounded-full"
                     >
                         <h2>Connect to sensor </h2>
