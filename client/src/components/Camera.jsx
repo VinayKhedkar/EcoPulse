@@ -5,10 +5,10 @@ import { GrGallery } from 'react-icons/gr'
 import { RiCameraSwitchLine } from 'react-icons/ri'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
-import { useCamera } from '@/context/camera.context'
 import { FaCheck } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { CameraLoader } from '.'
+import { useCamera } from '@/context/camera.context'
 
 export default function Camera({ setCameraOpen, setCapturedImage }) {
     const videoRef = useRef(null)
@@ -27,7 +27,7 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
     const startCamera = async (mode) => {
         try {
             setLoading(true)
-            stopCamera() // Ensure any existing camera stream is stopped first
+            stopCamera()
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { facingMode: mode },
             })
@@ -61,7 +61,7 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
         const imageData = canvas.toDataURL('image/png')
         setImage(imageData)
         setCapturedImage(imageData)
-        stopCamera() // Stop camera after taking photo
+        stopCamera()
     }
 
     const handleFileUpload = (event) => {
@@ -71,7 +71,7 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
             reader.onload = (e) => {
                 setImage(e.target.result)
                 setCapturedImage(e.target.result)
-                stopCamera() // Stop camera when file is uploaded
+                stopCamera()
             }
             reader.readAsDataURL(file)
         }
@@ -79,8 +79,8 @@ export default function Camera({ setCameraOpen, setCapturedImage }) {
 
     const handleReject = () => {
         setImage(null)
-        stopCamera() // Ensure camera stream is stopped
-        startCamera(facingMode) // Restart camera with current facing mode
+        stopCamera()
+        startCamera(facingMode)
     }
 
     const triggerFileInput = () => {

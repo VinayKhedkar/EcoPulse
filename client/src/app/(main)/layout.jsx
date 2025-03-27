@@ -1,12 +1,17 @@
-import { Header, Navbar } from '@/components'
+import { Header, Navbar } from "@/components";
+import { CameraProvider } from "@/context/camera.context";
 
 const layout = ({ children }) => {
-    return (
-        <main className="flex flex-col h-svh gap-[1rem]">
-            <div className="max-container flex-1 overflow-auto bg-primary">{children}</div>
-            <Navbar />
-        </main>
-    )
-}
+  return (
+    <CameraProvider>
+      <main className="flex flex-col h-svh gap-[1rem]">
+        <div className="max-container flex-1 overflow-auto bg-primary">
+          {children}
+        </div>
+        <Navbar />
+      </main>
+    </CameraProvider>
+  );
+};
 
-export default layout
+export default layout;
