@@ -5,8 +5,8 @@ import { CiWifiOn } from 'react-icons/ci'
 import { CiWifiOff } from 'react-icons/ci'
 import { RxCross1 } from 'react-icons/rx'
 
-const WS_URL = 'ws://YOUR_ESP32_IP:81'
-const API_URL = 'http://YOUR_ESP32_IP/get-data'
+const WS_URL = 'ws://192.168.4.1:80'
+const API_URL = 'http://192.168.4.1:80'
 
 function WiFiConnect({ setWiFiOpen }) {
     const [isConnected, setIsConnected] = useState(false)
