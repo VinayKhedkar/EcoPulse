@@ -6,9 +6,6 @@ export const metadata = {
 	title: 'EcoPulse - AI-powered Farming Assistant',
 	description:
 		'AI-powered farming assistant for smallholder farmers, providing real-time insights on crop health, pest detection, and resource optimization.',
-	viewport:
-		'width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover',
-	themeColor: '#fdfdfd',
 	appleWebApp: {
 		capable: true,
 		statusBarStyle: 'black-translucent',
@@ -82,6 +79,7 @@ export const metadata = {
 		],
 		shortcut: '/images/favicon.ico',
 	},
+	metadataBase: new URL('https://eco-pulse-three.vercel.app'),
 	twitter: {
 		card: 'summary',
 		site: '@EcoPulseAI',
@@ -107,6 +105,13 @@ export const metadata = {
 		],
 	},
 }
+
+export const viewport = {
+	width: 'device-width',
+	initialScale: 1,
+}
+
+export const themeColor = '#ffffff'
 
 export default function RootLayout({ children }) {
 	return (
