@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 import os
 
 
@@ -8,6 +9,8 @@ from app.utils import not_found_error_handler, global_error_handler
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(app, origins=os.getenv("CORS_ORIGINS").split(","))
 
     app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
