@@ -1,50 +1,74 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { RxCross2 } from "react-icons/rx";
 import { GrGallery } from "react-icons/gr";
 import { RiCameraSwitchLine } from "react-icons/ri";
-import toast from "react-hot-toast";
-import Image from "next/image";
 import { FaCheck } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useCamera } from "@/context/camera.context";
+import { Base64Image, ReportModal } from ".";
 
-export default function Camera({ setCameraOpen }) {
+const CameraLoader = () => (
+  <div className="flex justify-center items-center h-full w-full">
+    <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+  </div>
+);
+
+export default function Camera({ setCameraOpen, setReportModal }) {
   const webcamRef = useRef(null);
   const fileInputRef = useRef(null);
   const { image, setImage } = useCamera();
   const [facingMode, setFacingMode] = useState("environment");
-  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (image) {
+      setImage(null);
+    }
+  }, []);
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImage(imageSrc);
-    console.log(imageSrc);
-    toast.success("Image captured successfully!", {
-      className: "toast-success",
-    });
   };
 
   const handleReject = () => {
+    setLoading(true);
     setImage(null);
   };
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) return;
+
+    console.log(file.type);
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Only image files are allowed!", {
+        className: "toast-error",
+      });
+      return;
     }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64String = e.target.result;
+
+      if (!base64String.startsWith("data:image")) {
+        toast.error("Invalid image format!", { className: "toast-error" });
+        return;
+      }
+
+      setImage(base64String);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const triggerFileInput = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current?.click();
   };
 
   return (
@@ -62,20 +86,21 @@ export default function Camera({ setCameraOpen }) {
       </div>
 
       <div className="absolute inset-0">
+        {loading && <CameraLoader />}
         {!image ? (
           <Webcam
             ref={webcamRef}
-            screenshotFormat="image/png"
             videoConstraints={{ facingMode }}
             className="h-full w-full object-cover"
+            onUserMedia={() => setLoading(false)}
           />
         ) : (
-          <Image
-            src={image}
-            alt="Captured Image"
+          <Base64Image
+            base64={image}
             width={500}
             height={500}
-            className="h-full object-cover"
+            alt="Crop photo"
+            classname={"w-full h-full object-cover"}
           />
         )}
       </div>
@@ -90,7 +115,10 @@ export default function Camera({ setCameraOpen }) {
           </button>
           <button
             className="text-[#2E7D32] bg-[#d0ffd4] p-[1.5rem] rounded-full"
-            onClick={() => router.push("/crop-disease")}
+            onClick={() => {
+              setReportModal(true);
+              setCameraOpen(false);
+            }}
           >
             <FaCheck size={35} />
           </button>

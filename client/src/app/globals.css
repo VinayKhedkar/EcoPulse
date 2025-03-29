@@ -52,6 +52,8 @@
     --font-secondary: 'Plus Jakarta Sans', sans-serif;
     --font-tertiary: 'Lobster Two', cursive;
     --font-preahvihear: 'Preahvihear', cursive;
+    --color-lightGreen: #d0ffd4;
+    --color-darkGreen: #2E7D32;
 }
 
 @layer base {
