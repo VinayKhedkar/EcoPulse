@@ -46,7 +46,7 @@ const ReportModal = ({ setReportModal }) => {
           const data = await response.json();
           setDiseaseData(data);
         } catch (error) {
-          toast.error("Failed to analyze image. Please try again.", {
+          toast.error(error.message, {
             className: "toast-error",
             duration: 4000,
           });
