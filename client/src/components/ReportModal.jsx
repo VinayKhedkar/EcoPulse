@@ -9,59 +9,42 @@ import { MdOutlineHealthAndSafety, MdOutlineSaveAlt } from "react-icons/md";
 import { TbPercentage } from "react-icons/tb";
 import { AiFillMedicineBox } from "react-icons/ai";
 import { IoMdShare } from "react-icons/io";
+import {
+  base64ToFile,
+  preprocessImage,
+  runONNXModel,
+} from "@/utils/model.util";
 
 const ReportModal = ({ setReportModal }) => {
   const { image, setImage } = useCamera();
   const [diseaseData, setDiseaseData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const base64ToFile = (base64String, filename) => {
-    const arr = base64String.split(",");
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, { type: mime });
-  };
-
   useEffect(() => {
     if (image) {
       const fetchReport = async () => {
-        setIsLoading(true);
-        const file = new FormData();
-        const pngImage = base64ToFile(image, "image.png");
-        file.append("file", pngImage);
-
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/model/predict`,
-            {
-              method: "POST",
-              body: file,
-            }
-          );
-          const data = await response.json();
-          setDiseaseData(data);
+          setIsLoading(true);
+          const pngImage = base64ToFile(image, "image.png");
+          const report = await runONNXModel(pngImage);
+
+          setDiseaseData(report);
+          setIsLoading(false);
         } catch (error) {
           toast.error(error.message, {
             className: "toast-error",
-            duration: 4000,
           });
-        } finally {
-          setIsLoading(false);
         }
       };
+
       fetchReport();
     }
   }, [image]);
 
   const handleClose = () => {
-    setReportModal(false);
     setDiseaseData(null);
     setImage(null);
+    setReportModal(false);
   };
 
   return (
