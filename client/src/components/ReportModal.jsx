@@ -49,7 +49,7 @@ const ReportModal = ({ setReportModal }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-[5px]">
-      <div className="relative w-full max-h-[95%] max-container overflow-auto bg-primary rounded-xl shadow-lg">
+      <div className="relative w-full h-full max-container overflow-auto bg-primary shadow-lg">
         <div className="sticky top-0 flex justify-between items-center p-[1.5rem] border-b border-gray-200 bg-white z-10">
           <h2 className="text-green-700">Crop Diagnosis Report</h2>
           <div className="flex items-center p-[0.2rem] backdrop-blur-[6px] justify-center rounded-full bg-gray-300 hover:bg-gray-200 transition-colors">
