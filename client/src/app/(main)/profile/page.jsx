@@ -66,14 +66,19 @@ export default function Page() {
           <MdEdit size={20} className="text-green" />
           <h3 className="text-green font-bold">Edit Profile</h3>
         </button>
-        <button className="flex items-center justify-center  gap-[0.5rem] bg-[#E3F2FD] px-[2rem] py-[1rem] rounded-full w-[15rem]">
+        <button className="flex items-center justify-center gap-[0.5rem] bg-[#E3F2FD] px-[2rem] py-[1rem] rounded-full w-[15rem]">
           <IoMdSettings size={20} className="text-[#1565C0]" />
           <h3 className="text-[#1565C0] font-bold">Settings</h3>
         </button>
       </div>
 
-      <div className="flex flex-col gap-[rem] bg-[#FFF8E1] p-[1rem] rounded-xl">
-        <h3 className="text-[1.6rem] font-bold text-secondary">Your Posts</h3>
+      <div className="flex flex-col gap-[1.5rem] p-[1rem] rounded-xl">
+        <div className="flex justify-between items-center">
+          <h3 className="text-[1.6rem] font-bold text-secondary">Your Posts</h3>
+          <button className="flex items-center justify-center gap-[0.5rem] bg-[#E3F2FD] px-[1.5rem] py-[0.5rem] rounded-full w-fit">
+            <p>View all</p>
+          </button>
+        </div>
         <div className="w-full">
           <Swiper
             spaceBetween={10}
@@ -93,12 +98,6 @@ export default function Page() {
             ))}
           </Swiper>
         </div>
-        <div className="w-full flex justify-between items-center gap-[1rem] p-[1rem] rounded-[1rem] bg-white shadow-md">
-          <h3 className="font-bold text-[#D84315] font-secondary">
-            View all posts
-          </h3>
-          <MdKeyboardDoubleArrowRight className="text-[#D84315]" size={28} />
-        </div>
       </div>
     </div>
   );
@@ -106,7 +105,7 @@ export default function Page() {
 
 const PostCard = ({ img, title, description }) => {
   return (
-    <div className="w-full h-full flex justify-center items-center p-[1rem] rounded-xl">
+    <div className="w-full h-full flex justify-center p-[0.2rem] items-center rounded-xl">
       <div className="relative flex flex-col gap-[1rem] flex-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.2)] rounded-xl">
         <Image
           src={img || Plantation}
