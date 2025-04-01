@@ -17,6 +17,7 @@ import Soil from './soil.svg'
 import Community1 from './community.webp'
 import Farming from './farming.jpg'
 import Plantation from './plantation.jpg'
+import Logo from './logo.png'
 
 export {
     Profile,
@@ -38,4 +39,5 @@ export {
     Community1,
     Farming,
     Plantation,
+    Logo,
 }

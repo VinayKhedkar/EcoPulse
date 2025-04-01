@@ -1,5 +1,5 @@
 "use client";
-import { useCamera } from "@/context/camera.context";
+import { useCamera } from "@/context/CameraContext";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";

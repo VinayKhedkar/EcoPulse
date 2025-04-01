@@ -7,6 +7,7 @@ import CameraLoader from "./CameraLoader";
 import ReportModal from "./ReportModal";
 import Base64Image from "./Base64Image";
 import ReportModalSkeleton from "./ReportModalSkeleton";
+import Loader from "./Loader";
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   ReportModal,
   Base64Image,
   ReportModalSkeleton,
+  Loader,
 };

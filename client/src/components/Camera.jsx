@@ -6,7 +6,7 @@ import { GrGallery } from "react-icons/gr";
 import { RiCameraSwitchLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
 import Image from "next/image";
-import { useCamera } from "@/context/camera.context";
+import { useCamera } from "@/context/CameraContext";
 import { Base64Image, ReportModal } from ".";
 
 const CameraLoader = () => (
