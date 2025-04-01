@@ -14,11 +14,14 @@ const Header = () => {
   };
 
   return (
-    <div className="max-container flex flex-col gap-[1rem] z-10">
+    <div className="max-container flex flex-col gap-[1rem] z-10 bg-primary">
       <div className="flex justify-between items-center py-[1rem]">
         <div className="flex justify-center items-center gap-[1rem]">
           {location !== "/" && (
-            <button onClick={() => router.back()} className="flex items-center bg-green-200 p-[0.8rem] rounded-full">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center bg-green-200 p-[0.8rem] rounded-full"
+            >
               <FaArrowLeft strokeWidth={0.5} className="text-green" size={18} />
             </button>
           )}
