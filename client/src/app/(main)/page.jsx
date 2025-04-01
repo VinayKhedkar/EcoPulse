@@ -8,12 +8,10 @@ import {
   Img1,
   Img3,
   Medicine,
-  Notification,
   ReportSVG,
   Soil,
   TakePic,
 } from "@/assets";
-import { IoMdSearch } from "react-icons/io";
 import { FaMicrochip } from "react-icons/fa6";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -76,23 +74,7 @@ export default function Page() {
 
   return (
     <>
-      <div className=" flex flex-col gap-[2rem] px-[1rem] py-[1rem]">
-        <header className="flex flex-col justify-between items-center gap-[1rem]">
-          <div className="flex justify-between items-center w-full">
-            <h1 className="text-green font-extrabold font-">Home</h1>
-            <div className="flex items-center bg-green-200 p-[1rem] rounded-full">
-              <Image src={Notification} width={15} height={15} alt="hero" />
-            </div>
-          </div>
-          <div className="flex justify-between items-center gap-[1rem] w-full p-[1rem] border-[2px] border-gray rounded-full">
-            <IoMdSearch className="w-[2rem] h-[2rem]" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="flex-1 w-full text-[1.5rem]"
-            />
-          </div>
-        </header>
+      <div className=" flex flex-col gap-[2rem] py-[1rem]">
         <div className="flex gap-[1rem] py-[1rem] px-[2rem] border-[2px] border-gray rounded-[2.3rem] bg-[#FFF0D3] relative">
           <div className="flex flex-col gap-[1rem]">
             <h1 className="font-tertiary font-[500] tracking-wider">
