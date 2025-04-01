@@ -66,7 +66,7 @@ def callback():
     )
 
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
-    redirect_url = f"{frontend_url}?success={jwt_token}"
+    redirect_url = f"{frontend_url}/auth/success?success={jwt_token}"
 
     return redirect(redirect_url, code=302)
 
