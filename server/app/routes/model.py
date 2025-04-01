@@ -41,9 +41,8 @@ def predict():
     with open("app/data/plant_village.csv", mode="r") as file:
         reader = csv.DictReader(file)
         disease_mapping = list(reader)
-    
 
-    # disease_mapping = 
+    # disease_mapping =
 
     return jsonify(
         {

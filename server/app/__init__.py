@@ -3,7 +3,7 @@ from flask_cors import CORS
 import os
 
 
-from app.routes import main_bp, model_bp, oauth_bp, init_oauth
+from app.routes import main_bp, model_bp, oauth_bp, init_oauth, api_bp
 from app.utils import not_found_error_handler, global_error_handler
 
 
@@ -19,6 +19,7 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(model_bp)
     app.register_blueprint(oauth_bp)
+    app.register_blueprint(api_bp)
 
     app.register_error_handler(404, not_found_error_handler)
 

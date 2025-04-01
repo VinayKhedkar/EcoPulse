@@ -2,7 +2,7 @@ import os
 import jwt
 import secrets
 import datetime
-from flask import Blueprint, url_for, redirect, jsonify, session
+from flask import Blueprint, url_for, redirect, session
 from authlib.integrations.flask_client import OAuth
 from app.utils import AppError
 
@@ -60,25 +60,15 @@ def callback():
     jwt_token = jwt.encode(
         {
             "email": user_info["email"],
-            "name": user_info.get("name", ""),
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
         },
         jwt_secret,
         algorithm="HS256",
     )
 
-    return jsonify(
-        {
-            "status": "success",
-            "message": "Authentication successful",
-            "jwt": jwt_token,
-            "user": {
-                "email": user_info["email"],
-                "name": user_info.get("name", ""),
-                "picture": user_info.get("picture", ""),
-            },
-        }
-    )
+    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+    redirect_url = f"{frontend_url}?success={jwt_token}"
+
+    return redirect(redirect_url, code=302)
 
 
 def init_oauth(app):
