@@ -19,6 +19,7 @@ export default function page() {
       <div className="flex flex-col">
         <div className="w-full p-[1rem] h-full">
           <Link
+            replacev
             href="/social/articles"
             className="flex flex-col rounded-xl bg-[#d0ffd4]"
           >
@@ -40,6 +41,7 @@ export default function page() {
         </div>
         <div className="w-full p-[1rem] h-full">
           <Link
+            replace
             href="/social/community"
             className="flex flex-col rounded-xl bg-[#FFF8E1]"
           >
@@ -61,6 +63,7 @@ export default function page() {
         </div>
         <div className="w-full p-[1rem] h-full">
           <Link
+            replace
             href="/social/posts"
             className="flex flex-col rounded-xl bg-[#E3F2FD]"
           >
