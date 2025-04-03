@@ -19,7 +19,7 @@ export default function page() {
       <div className="flex flex-col">
         <div className="w-full p-[1rem] h-full">
           <Link
-            replacev
+            replace
             href="/social/articles"
             className="flex flex-col rounded-xl bg-[#d0ffd4]"
           >

@@ -6,14 +6,15 @@ const ArticleCard = ({ title, description, image, url }) => {
     return (
         <div className="w-full h-full flex justify-center items-center p-[1rem] rounded-xl">
             <div className="relative flex flex-col gap-[1rem] flex-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.2)] rounded-xl">
-                <Image
+                <img
                     src={image || Article}
-                    width={50}
-                    height={50}
+                    // width={50}
+                    // height='auto'
+                    // unoptimized
                     alt={title}
-                    className="w-full aspect-[16/7] rounded-t-xl"
+                    className="w-full aspect-[16/9] rounded-t-xl"
                 />
-                <div className="px-[1rem] pb-[1rem] flex flex-col gap-[1rem]">
+                <div className="px-[1rem] flex flex-col gap-[1rem]">
                     <h3 className="font-[900] font-secondary">{title}</h3>
                     <p>{description}</p>
                 </div>
