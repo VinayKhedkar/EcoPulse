@@ -49,10 +49,11 @@ def get_articles_data(res):
     for article in articles:
         link = article.find("a")["href"]
         title = article.find("h2").get_text()
-        image = article.find("img")["src"]
+        image = article.find("img", class_="attachment-herald-lay-b1")
+        image_url = image.get("data-lazy-src") or image.get("src")
         description = article.find("p").get_text()
         data.append(
-            {"title": title, "link": link, "image": image, "description": description}
+            {"title": title, "link": link, "image": image_url, "description": description}
         )
 
     return data
