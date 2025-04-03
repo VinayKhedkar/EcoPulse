@@ -32,14 +32,27 @@ def get_articles():
 
     if res.status_code != 200:
         raise AppError("Failed to fetch articles from the source.", 500)
-    
-    soup = BeautifulSoup(res, 'html.parser')
-    
+
+    data = get_articles_data(res)
 
     return {
         "status": 200,
         "message": "Articles fetched successfully",
-        # "data": ,
+        "data": data,
     }, 200
-        
-    
+
+
+def get_articles_data(res):
+    soup = BeautifulSoup(res.text, "html.parser")
+    articles = soup.find("div", class_="herald-posts").find_all("article")
+    data = []
+    for article in articles:
+        link = article.find("a")["href"]
+        title = article.find("h2").get_text()
+        image = article.find("img")["src"]
+        description = article.find("p").get_text()
+        data.append(
+            {"title": title, "link": link, "image": image, "description": description}
+        )
+
+    return data
