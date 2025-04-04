@@ -14,7 +14,7 @@ import {
 } from '@/assets'
 import { FaMicrochip } from 'react-icons/fa6'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FiSun } from 'react-icons/fi'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
@@ -26,35 +26,21 @@ import toast from 'react-hot-toast'
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
 
 export default function Page() {
-    const articlesInfo = [
-        {
-            title: '6 Innovative Agriculture Technology in 2023',
-            description:
-                'Agriculture technology is constantly evolving, and it’s important for farmers to stay up-to-date on the latest advancements. Here are six innovative agriculture technologies that are expected to make a big impact in 2023.',
-            image: Img1,
-            url: 'https://medium.com/%40DiggerInsights/6-innovative-agriculture-technology-in-2023-e188a02b1fc3',
-        },
-        {
-            title: 'Regenerative Agriculture and Soil Carbon" by Deniz Dutton',
-            description:
-                'The author provides an overview of regenerative agriculture practices and their impact on soil carbon sequestration.',
-            image: null,
-            url: 'https://medium.com/%40deniz.dutton/the-good-the-bad-and-the-complicated-regenerative-agriculture-and-soil-carbon-d3fe62297a88',
-        },
-        {
-            title: 'V Spehar of FoodFarmacy',
-            description:
-                ' How They Are Helping to Address the Problem of People Having Limited Access to Healthy & Affordable Food Options" by Martita Mestey',
-            image: Img3,
-            url: 'https://medium.com/authority-magazine/food-deserts-v-spehar-of-foodfarmacy-on-how-they-are-helping-to-address-the-problem-of-people-dd1465289c1f',
-        },
-    ]
-
     const [cameraOpen, setCameraOpen] = useState(false)
     const [wifiOpen, setWifiOpen] = useState(false)
     const [reportModal, setReportModal] = useState(false)
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(true)
+    const swiperRef = useRef(null)
+
+    const handleSlideClick = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.autoplay.stop()
+            setTimeout(() => {
+                swiperRef.current.swiper.autoplay.start()
+            }, 10000)
+        }
+    }
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -62,14 +48,21 @@ export default function Page() {
                 const response = await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/api/articles?page=1`
                 )
-
                 const data = await response.json()
 
                 if (!response.ok) {
                     throw new Error(data.message)
                 }
 
-                setArticles(data.data)
+                if (data.data.length !== 0) {
+                    const updatedArticles = data.data.map((article) => ({
+                        ...article,
+                        image: article.image || Article,
+                    }))
+
+                    setArticles(updatedArticles)
+                }
+
                 setLoading(false)
             } catch (error) {
                 toast.error(error.message, {
@@ -79,6 +72,7 @@ export default function Page() {
         }
 
         fetchArticles()
+        console.log(articles)
     }, [])
 
     const handleCameraOpen = () => {
@@ -257,6 +251,7 @@ export default function Page() {
                 <div className="flex flex-col gap-[1rem] w-full">
                     <h2>Latest articles on agriculture</h2>
                     <Swiper
+                        ref={swiperRef}
                         spaceBetween={10}
                         slidesPerView={1}
                         modules={[Autoplay]}
@@ -271,19 +266,24 @@ export default function Page() {
                             ? [...Array(5)].map((_, index) => (
                                   <SwiperSlide
                                       key={index}
-                                      className="w-full max-w-[400px]"
+                                      className="w-full max-w-[400px] p-[1rem]"
                                   >
                                       <LoadingCard />
                                   </SwiperSlide>
                               ))
                             : articles.map((article, index) => (
                                   <SwiperSlide
+                                      onClick={handleSlideClick}
                                       key={index}
                                       className="w-full max-w-[400px]"
                                   >
                                       <ArticleCard
                                           title={article.title}
-                                          image={article.image}
+                                          image={
+                                              article.image === null
+                                                  ? Article
+                                                  : article.image
+                                          }
                                           url={article.link}
                                           description={article.description}
                                       />
@@ -305,5 +305,5 @@ export default function Page() {
 }
 
 const LoadingCard = () => {
-    return <div className="w-full h-[22rem] animate-skeleton rounded-xl"></div>
+    return <div className="w-full h-[30rem] animate-skeleton rounded-xl"></div>
 }

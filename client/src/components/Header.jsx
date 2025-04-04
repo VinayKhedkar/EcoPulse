@@ -14,13 +14,13 @@ const Header = () => {
     }
 
     return (
-        <div className="w-full h-fit flex relative z-10 justify-center items-center bg-white shadow-sm">
+        <div className="w-full h-fit flex relative z-10 justify-center items-center bg-white px-[1rem]">
             <div className="max-container flex flex-col gap-[1rem] bg-primary py-[1rem]">
                 <div className="flex justify-between items-center py-[1rem]">
                     <h1 className="text-green capitalize">
                         {formatPath(location)}
                     </h1>
-                    {location !== '/profile' && (
+                    {location !== 'profile' && (
                         <div className="flex items-center bg-green-200 p-[1rem] rounded-full">
                             <IoIosNotificationsOutline
                                 strokeWidth={5}
@@ -31,7 +31,7 @@ const Header = () => {
                         </div>
                     )}
                 </div>
-                {location !== '/profile' && (
+                {location !== 'profile' && location !== '' && (
                     <div className="flex justify-between items-center gap-[1rem] w-full p-[1rem] border-[2px] border-gray rounded-full">
                         <IoMdSearch className="w-[2rem] h-[2rem]" />
                         <input
