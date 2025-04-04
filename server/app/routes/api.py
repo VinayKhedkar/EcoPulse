@@ -43,17 +43,35 @@ def get_articles():
 
 
 def get_articles_data(res):
+
     soup = BeautifulSoup(res.text, "html.parser")
-    articles = soup.find("div", class_="herald-posts").find_all("article")
+    container = soup.find("div", class_="herald-posts")
+    articles = container.find_all("article")
+
     data = []
+
     for article in articles:
         link = article.find("a")["href"]
+
         title = article.find("h2").get_text()
-        image = article.find("img", class_="attachment-herald-lay-b1")
-        image_url = image.get("data-lazy-src") or image.get("src")
+        image_tag = article.find("img", class_="attachment-herald-lay-b1")
+        image_url = None
+
+        if image_tag:
+            image_url = (
+                image_tag.get("data-lazy-src")
+                or image_tag.get("src")
+                or image_tag.get("data-lazy-srcset", "").split(",")[0].split(" ")[0]
+            )
+
         description = article.find("p").get_text()
         data.append(
-            {"title": title, "link": link, "image": image_url, "description": description}
+            {
+                "title": title,
+                "link": link,
+                "image": image_url,
+                "description": description,
+            }
         )
 
     return data

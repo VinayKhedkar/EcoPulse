@@ -21,6 +21,7 @@ import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import { ArticleCard, ReportModal, WiFiConnect } from '@/components'
 import { CiWifiOn } from 'react-icons/ci'
+import toast from 'react-hot-toast'
 
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
 
@@ -51,7 +52,6 @@ export default function Page() {
 
     const [cameraOpen, setCameraOpen] = useState(false)
     const [wifiOpen, setWifiOpen] = useState(false)
-    const [capturedImage, setCapturedImage] = useState(null)
     const [reportModal, setReportModal] = useState(false)
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(true)
