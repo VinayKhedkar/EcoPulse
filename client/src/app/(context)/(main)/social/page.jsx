@@ -7,7 +7,6 @@ import {
   Notification,
   Plantation,
 } from "@/assets";
-import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

@@ -47,7 +47,7 @@
     --color-green: #007e2f;
     --color-red: #ff6384;
     --color-gray: #939393;
-    --color-bluetooth: oklch(0.707 0.165 254.624);
+    --color-bluetooth: rgb(0, 178, 255)
     --font-primary: 'Poppins', 'Inter', sans-serif;
     --font-secondary: 'Plus Jakarta Sans', sans-serif;
     --font-tertiary: 'Lobster Two', cursive;

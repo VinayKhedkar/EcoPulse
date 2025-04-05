@@ -19,11 +19,14 @@ import { FiSun } from 'react-icons/fi'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import { ArticleCard, ReportModal, WiFiConnect } from '@/components'
+import { ArticleCard, WiFiConnect } from '@/components'
 import { CiWifiOn } from 'react-icons/ci'
 import toast from 'react-hot-toast'
 
 const Camera = dynamic(() => import('@/components/Camera'), { ssr: false })
+const ReportModal = dynamic(() => import('@/components/ReportModal'), {
+    ssr: false,
+})
 
 export default function Page() {
     const [cameraOpen, setCameraOpen] = useState(false)
@@ -214,7 +217,7 @@ export default function Page() {
                                     alt="Soil"
                                 />
                                 <FaMicrochip
-                                    fill="oklch(0.707 0.165 254.624)"
+                                    fill="rgb(0, 178, 255)"
                                     strokeWidth={18}
                                     stroke="#000"
                                     className="w-[3.2rem] h-[3.2rem] absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2"
