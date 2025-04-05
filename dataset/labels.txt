@@ -1,0 +1,7 @@
+Tomato_Early_blight
+Potato___Early_blight
+Pepper__bell___Bacterial_spot
+Tomato_Bacterial_spot
+Tomato_Late_blight
+Pepper__bell___Bacterial_spot
+Tomato__Tomato_YellowLeaf__Curl_Virus
