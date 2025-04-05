@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from app.middleware.auth import protected
 from app.utils import AppError
 
-from app.constants import ARTICLES
+from app.constants import ARTICLES, SHOPS, SHOPS_URL
 
 bp = Blueprint("api", __name__, url_prefix="/api")
 
@@ -71,6 +71,52 @@ def get_articles_data(res):
                 "link": link,
                 "image": image_url,
                 "description": description,
+            }
+        )
+
+    return data
+
+
+@bp.route("/shop", methods=["GET"])
+def get_shop():
+    res = requests.get(SHOPS(request.args.get("q", "")))
+
+    if res.status_code != 200:
+        raise AppError("Failed to fetch product", 500)
+
+    data = get_shop_data(res)
+
+    return {
+        "status": 200,
+        "message": "Shop data fetched successfully",
+        "data": data,
+    }, 200
+
+
+def get_shop_data(res):
+    soup = BeautifulSoup(res.text, "html.parser")
+    products = soup.select(".product-card-wrapper ")
+
+    data = []
+
+    for product in products:
+        link = product.select_one(".card__heading a")["href"]
+        title = product.select_one(".card__heading a").get_text().strip()
+        regular_price = (
+            product.select_one(".price__sale .price-item--regular").get_text().strip()
+        )
+        sale_price = (
+            product.select_one(".price__sale .price-item--sale").get_text().strip()
+        )
+        image_url = product.select_one("img")["src"]
+
+        data.append(
+            {
+                "title": title,
+                "link": SHOPS_URL+"/"+link,
+                "image": image_url,
+                "regular_price": regular_price if regular_price else None,
+                "sale_price": sale_price if sale_price else None,
             }
         )
 
