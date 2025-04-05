@@ -101,6 +101,7 @@ def get_shop_data(res):
 
     for product in products:
         link = product.select_one(".card__heading a")["href"]
+        id = product.select_one(".card__heading a")["id"].split("-")[-1]
         title = product.select_one(".card__heading a").get_text().strip()
         regular_price = (
             product.select_one(".price__sale .price-item--regular").get_text().strip()
@@ -112,6 +113,7 @@ def get_shop_data(res):
 
         data.append(
             {
+                "id": id,
                 "title": title,
                 "link": SHOPS_URL+"/"+link,
                 "image": image_url,
