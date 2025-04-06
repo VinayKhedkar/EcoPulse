@@ -45,7 +45,7 @@ const Shop = () => {
 
     const ProductCard = ({ image, title, link, regular_price, sale_price }) => {
         return (
-            <div className="w-full max-w-xs shadow-md rounded-2xl overflow-hidden transition duration-300">
+            <div className="w-full h-full max-w-xs shadow-md rounded-2xl overflow-hidden transition duration-300 flex flex-col justify-between items-center">
                 <a href={link} target="_blank" rel="noopener noreferrer">
                     <img
                         src={`https:${image}`}
@@ -94,13 +94,13 @@ const Shop = () => {
                 </div>
             </div>
             {loading ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1rem] justify-center items-center w-full py-[1rem]">
+                <div className="grid grid-cols-1 gap-[1rem] place-items-center w-full py-[1rem]">
                     {Array.from({ length: 20 }).map((_, index) => (
                         <ProductLoader key={index} />
                     ))}
                 </div>
             ) : products.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1rem] justify-center items-center w-full py-[1.5rem]">
+                <div className="grid grid-cols-2 gap-[1rem] place-items-center w-full py-[1.5rem]">
                     {products.map((product) => (
                         <ProductCard
                             key={product.id}
