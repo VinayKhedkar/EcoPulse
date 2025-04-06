@@ -9,6 +9,7 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useAuth } from "@/context/AuthContext";
+import { PostCard } from "@/components";
 
 export default function Page() {
   const {user, setUser} = useAuth()
@@ -109,23 +110,3 @@ export default function Page() {
     </div>
   );
 }
-
-const PostCard = ({ img, title, description }) => {
-  return (
-    <div className="w-full h-full flex justify-center p-[0.2rem] items-center rounded-xl">
-      <div className="relative flex flex-col gap-[1rem] flex-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.2)] rounded-xl">
-        <Image
-          src={img || Plantation}
-          width={50}
-          height={50}
-          alt={title}
-          className="w-full aspect-[16/7] rounded-t-xl"
-        />
-        <div className="px-[1rem] pb-[1rem] flex flex-col gap-[1rem]">
-          <h3 className="font-[900] font-secondary">{title}</h3>
-          <p>{description}</p>
-        </div>
-      </div>
-    </div>
-  );
-};

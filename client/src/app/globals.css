@@ -94,7 +94,6 @@
         outline: none;
         scroll-behavior: smooth;
         text-decoration: none;
-        list-style: none;
         font-family: var(--font-primary);
     }
 }

@@ -9,10 +9,9 @@ import { MdOutlineSaveAlt } from 'react-icons/md'
 import { TbPercentage } from 'react-icons/tb'
 import { AiFillMedicineBox } from 'react-icons/ai'
 import { IoMdShare } from 'react-icons/io'
-import { base64ToFile, runONNXModel } from '@/utils/model.util'
+import { base64ToFile, runONNXModel } from '@/utils/cropdiseasemodel.util'
 import html2canvas from 'html2canvas-pro'
 import jsPDF from 'jspdf'
-import Logo from '@/assets/logo.png' // adjust the path based on your project
 
 const ReportModal = ({ setReportModal }) => {
     const { image, setImage } = useCamera()

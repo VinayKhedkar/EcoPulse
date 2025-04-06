@@ -1,6 +1,5 @@
 import * as ort from 'onnxruntime-web'
 const Papa = require('papaparse')
-const path = require('path')
 
 let session = null
 
@@ -8,7 +7,7 @@ async function loadModel() {
     if (!session) {
         try {
             session = await ort.InferenceSession.create(
-                path.join(__dirname, '../models/plant_disease_model.onnx')
+                '/models/plant_disease_model.onnx'
             )
         } catch (error) {
             throw new Error('Failed to load model. Please try again later.')

@@ -9,6 +9,8 @@ import Base64Image from "./Base64Image";
 import ReportModalSkeleton from "./ReportModalSkeleton";
 import Loader from "./Loader";
 import ArticlesSkeleton from "./ArticlesSkeleton";
+import SensorReport from "./SensorReport";
+import PostCard from "./PostCard";
 
 export {
   Header,
@@ -22,4 +24,6 @@ export {
   ReportModalSkeleton,
   Loader,
   ArticlesSkeleton,
+  SensorReport,
+  PostCard,
 };
