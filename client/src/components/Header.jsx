@@ -31,16 +31,6 @@ const Header = () => {
                         </div>
                     )}
                 </div>
-                {location !== 'profile' && location !== '' && (
-                    <div className="flex justify-between items-center gap-[1rem] w-full p-[1rem] border-[2px] border-gray rounded-full">
-                        <IoMdSearch className="w-[2rem] h-[2rem]" />
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="flex-1 w-full text-[1.5rem]"
-                        />
-                    </div>
-                )}
             </div>
         </div>
     )

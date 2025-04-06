@@ -60,6 +60,8 @@ def callback():
     jwt_token = jwt.encode(
         {
             "email": user_info["email"],
+            "name": user_info["name"],
+            "pic": user_info["picture"],
         },
         jwt_secret,
         algorithm="HS256",

@@ -8,8 +8,15 @@ import { MdEdit, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Page() {
+  const {user, setUser} = useAuth()
+
+  const handleLogout = () => {
+    setUser(null)
+  }
+
   const postData = [
     {
       img: Plantation,
@@ -39,8 +46,8 @@ export default function Page() {
   return (
     <div className="h-full flex flex-col gap-[2rem] py-[1rem]">
       <div className="flex flex-col items-center text-center gap-[1rem]">
-        <FaUser fill="green" size={50} />
-        <h2 className="text-[1.8rem] font-bold">John Doe</h2>
+        {user ? <Image src={user?.pic} alt="profile picture" width={100} height={100} className="rounded-full" /> : <FaUser fill="green" size={50} />}
+        <h2 className="text-[1.8rem] font-bold">{user?.name}</h2>
         <p className="text-[1.2rem] text-gray-600 max-w-[80%]">
           Passionate about farming & sustainable agriculture 🌱
         </p>

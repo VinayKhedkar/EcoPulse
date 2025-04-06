@@ -16,7 +16,7 @@ const withPWA = nextPWA({
 const nextConfig = withPWA({
     reactStrictMode: true,
     images: {
-        domains: ['agrinews.in'],
+        domains: ['agrinews.in', 'lh3.googleusercontent.com'],
     },
 })
 
