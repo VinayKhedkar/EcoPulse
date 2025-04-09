@@ -94,7 +94,7 @@ const Shop = () => {
                 </div>
             </div>
             {loading ? (
-                <div className="grid grid-cols-1 gap-[1rem] place-items-center w-full py-[1rem]">
+                <div className="grid grid-cols-2 gap-[1rem] place-items-center w-full py-[1rem]">
                     {Array.from({ length: 20 }).map((_, index) => (
                         <ProductLoader key={index} />
                     ))}
